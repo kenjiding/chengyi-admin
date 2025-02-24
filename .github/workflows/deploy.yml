@@ -31,7 +31,7 @@ jobs:
         run: aws s3 rm s3://admin-chengyi/dist/ --recursive
 
       - name: Upload build files to S3
-        run: aws s3 sync ./dist/ s3://admin-chengyi/dist/ --exact-timestamps
+        run: aws s3 sync ./dist/ s3://admin-chengyi/dist/ --acl public-read --exact-timestamps
 
       - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id E36UXAAZ3PR977 --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id E1QYI4Z0PK305R --paths "/*"
