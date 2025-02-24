@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 添加一些全局样式 */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+}
+
+/* 调整 antd 相关样式 */
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-content {
+  transition: all 0.2s;
+}
+
+.ant-layout-content.collapsed {
+  margin-left: 80px;
+}

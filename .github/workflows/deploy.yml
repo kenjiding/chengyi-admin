@@ -1,0 +1,37 @@
+name: Deploy to AWS S3 + CloudFront
+
+on:
+  push:
+    branches:
+      - main  # 只在 main 分支推送时触发部署
+
+jobs:
+  deploy:
+    name: Deploy to AWS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: CI=false npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2  # 你的 AWS 区域
+
+      - name: Delete old files in S3
+        run: aws s3 rm s3://admin-chengyi/dist/ --recursive
+
+      - name: Upload build files to S3
+        run: aws s3 sync ./dist/ s3://admin-chengyi/dist/ --exact-timestamps
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id E36UXAAZ3PR977 --paths "/*"
