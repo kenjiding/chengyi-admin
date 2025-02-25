@@ -43,13 +43,27 @@ const CategoryManagement: React.FC = () => {
   const [editingMainCategory, setEditingMainCategory] = useState<MainCategory | null>(null);
   const [editingSubCategory, setEditingSubCategory] = useState<SubCategory | null>(null);
   const [brandImg, setBrandImg] = useState<string[]>([]);
-
   const [brands, setBrands] = useState<Brand[]>([]);
   const [mainCategories, setMainCategories] = useState<MainCategory[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [tableLoadingObj, setTableLoadingObj] = useState({
+    brandTableLoading: false,
+    mainCTableLoading: false,
+    subCTableLoading: false,
+  });
 
+  const [loadingObj, setLoadingObj] = useState({
+    brandLoading: false,
+    mainCLoading: false,
+    subCLoading: false,
+  });
   const fetchData = async () => {
     try {
+      setTableLoadingObj({
+        brandTableLoading: true,
+        mainCTableLoading: true,
+        subCTableLoading: true,
+      });
       const [brandsData, mainCategoriesData, subCategoriesData] = await Promise.all([
         getBrands(),
         getMainCategories(),
@@ -62,6 +76,12 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('数据加载失败');
       console.error(error);
+    } finally {
+      setTableLoadingObj({
+        brandTableLoading: false,
+        mainCTableLoading: false,
+        subCTableLoading: false,
+      });
     }
   };
 
@@ -72,6 +92,10 @@ const CategoryManagement: React.FC = () => {
   // 品牌操作
   const handleAddBrand = async (values: Pick<Brand, 'name'>) => {
     try {
+      setLoadingObj({
+        ...loadingObj,
+        brandLoading: true,
+      });
       await addBrand(values);
       message.success('品牌添加成功');
       brandForm.resetFields();
@@ -80,12 +104,21 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('添加品牌失败');
       console.error(error);
+    } finally {
+      setLoadingObj({
+        ...loadingObj,
+        brandLoading: false,
+      });
     }
   };
 
   const handleEditBrand = async (values: Pick<Brand, 'name'>) => {
     if (!editingBrand?.id) return;
     try {
+      setLoadingObj({
+        ...loadingObj,
+        brandLoading: true,
+      });
       await updateBrand(editingBrand.id, values);
       message.success('品牌编辑成功');
       setEditingBrand(null);
@@ -94,6 +127,11 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('编辑品牌失败');
       console.error(error);
+    } finally {
+      setLoadingObj({
+        ...loadingObj,
+        brandLoading: false,
+      });
     }
   };
 
@@ -111,6 +149,10 @@ const CategoryManagement: React.FC = () => {
   // 主类别操作
   const handleAddMainCategory = async (values: Omit<MainCategory, 'id' | 'brand'>) => {
     try {
+      setLoadingObj({
+        ...loadingObj,
+        mainCLoading: true,
+      });
       await addMainCategory(values);
       message.success('主类别添加成功');
       mainCategoryForm.resetFields();
@@ -118,6 +160,11 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('添加主类别失败');
       console.error(error);
+    } finally {
+      setLoadingObj({
+        ...loadingObj,
+        mainCLoading: false,
+      });
     }
   };
 
@@ -129,6 +176,10 @@ const CategoryManagement: React.FC = () => {
   const handleEditMainCategory = async (values: Omit<MainCategory, 'id' | 'brand'>) => {
     if (!editingMainCategory?.id) return;
     try {
+      setLoadingObj({
+        ...loadingObj,
+        mainCLoading: true,
+      });
       await updateMainCategory(editingMainCategory.id, values);
       message.success('主类别编辑成功');
       setEditingMainCategory(null);
@@ -136,6 +187,11 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('编辑主类别失败');
       console.error(error);
+    } finally {
+      setLoadingObj({
+        ...loadingObj,
+        mainCLoading: false,
+      });
     }
   };
 
@@ -153,6 +209,10 @@ const CategoryManagement: React.FC = () => {
   // 子类别操作
   const handleAddSubCategory = async (values: Omit<SubCategory, 'id' | 'mainCategory'>) => {
     try {
+      setLoadingObj({
+        ...loadingObj,
+        subCLoading: true,
+      });
       await addSubCategory(values);
       message.success('子类别添加成功');
       subCategoryForm.resetFields();
@@ -160,12 +220,21 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('添加子类别失败');
       console.error(error);
+    } finally {
+      setLoadingObj({
+        ...loadingObj,
+        subCLoading: false,
+      });
     }
   };
 
   const handleEditSubCategory = async (values: Omit<SubCategory, 'id' | 'mainCategory'>) => {
     if (!editingSubCategory?.id) return;
     try {
+      setLoadingObj({
+        ...loadingObj,
+        subCLoading: true,
+      });
       await updateSubCategory(editingSubCategory.id, values);
       message.success('子类别编辑成功');
       setEditingSubCategory(null);
@@ -173,6 +242,11 @@ const CategoryManagement: React.FC = () => {
     } catch (error) {
       message.error('编辑子类别失败');
       console.error(error);
+    } finally {
+      setLoadingObj({
+        ...loadingObj,
+        subCLoading: false,
+      });
     }
   };
 
@@ -343,7 +417,7 @@ const CategoryManagement: React.FC = () => {
               <Col span={12}>
                 <div className='text-right'>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                    <Button loading={loadingObj.brandLoading} type="primary" htmlType="submit" icon={<PlusOutlined />}>
                       {editingBrand ? '保存' : '添加'}
                     </Button>
                     {editingBrand && (
@@ -373,7 +447,8 @@ const CategoryManagement: React.FC = () => {
           <div className="h-[calc(100vh-400px)] overflow-y-auto mt-4">
             <Table 
               columns={brandColumns} 
-              dataSource={brands} 
+              dataSource={brands}
+              loading={tableLoadingObj.brandTableLoading}
               rowKey="id"
               pagination={false}
               scroll={{ y: 'calc(100vh - 500px)' }}
@@ -420,7 +495,7 @@ const CategoryManagement: React.FC = () => {
             </Row>
             <div className='text-right'>
               <Form.Item>
-                <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                <Button loading={loadingObj.mainCLoading} type="primary" htmlType="submit" icon={<PlusOutlined />}>
                   {editingMainCategory ? '保存' : '添加'}
                 </Button>
                 {editingMainCategory && (
@@ -440,7 +515,8 @@ const CategoryManagement: React.FC = () => {
           <div className="h-[calc(100vh-400px)] overflow-y-auto mt-4">
             <Table 
               columns={mainCategoryColumns} 
-              dataSource={mainCategories} 
+              dataSource={mainCategories}
+              loading={tableLoadingObj.mainCTableLoading}
               rowKey="id"
               pagination={false}
               scroll={{ y: 'calc(100vh - 500px)' }}
@@ -487,7 +563,7 @@ const CategoryManagement: React.FC = () => {
             </Row>
             <div className='text-right'>
               <Form.Item>
-                <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                <Button loading={loadingObj.subCLoading} type="primary" htmlType="submit" icon={<PlusOutlined />}>
                   {editingSubCategory ? '保存' : '添加'}
                 </Button>
                 {editingSubCategory && (
@@ -507,7 +583,8 @@ const CategoryManagement: React.FC = () => {
           <div className="h-[calc(100vh-400px)] overflow-y-auto mt-4">
             <Table 
               columns={subCategoryColumns} 
-              dataSource={subCategories} 
+              dataSource={subCategories}
+              loading={tableLoadingObj.subCTableLoading}
               rowKey="id"
               pagination={false}
               scroll={{ y: 'calc(100vh - 500px)' }}
