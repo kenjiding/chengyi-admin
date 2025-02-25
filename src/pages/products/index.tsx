@@ -3,8 +3,7 @@ import {
   Table, 
   Button, 
   Space, 
-  Input, 
-  message, 
+  Input,
   Modal, 
   Form, 
   InputNumber,
@@ -25,6 +24,7 @@ import CategoryCascader from '@/components/CategoryCascader';
 import ImageUploader from '@/components/ImageUploader';
 import { getCategoryTree } from '@/api/category';
 import AuthCom from '@/components/AuthCom';
+import { messageApi as message } from '@/lib/utils';
 
 const { TextArea } = Input;
 

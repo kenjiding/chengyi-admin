@@ -77,7 +77,7 @@ class Request {
           if (res.code === 401) {
             // 清除用户信息并跳转到登录页
             useStore.getState().logout();
-            // window.location.href = '/login';
+            window.location.href = '/login';
           }
 
           return Promise.reject(new Error(res.message || '请求失败'));
@@ -94,7 +94,7 @@ class Request {
           // 401: 未登录或 token 过期
           if (response.status === 401) {
             useStore.getState().logout();
-            // window.location.href = '/login';
+            window.location.href = '/login';
           }
         } else if (!response) {
           messageApi.error('网络异常，请检查网络连接');

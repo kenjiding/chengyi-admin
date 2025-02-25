@@ -4,7 +4,6 @@ import {
   Input,
   Button,
   Select,
-  message,
   Table,
   Popconfirm,
   Tabs,
@@ -34,6 +33,7 @@ import { Brand, MainCategory, SubCategory } from '@/types/brand';
 import ImageUploader from '@/components/ImageUploader';
 import { getUrl } from '@/lib/utils';
 import AuthCom from '@/components/AuthCom';
+import { messageApi as message } from '@/lib/utils';
 
 const CategoryManagement: React.FC = () => {
   const [brandForm] = Form.useForm();

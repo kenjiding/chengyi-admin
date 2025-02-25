@@ -9,6 +9,7 @@ import BannerList from '@/pages/banner';
 import BrandCategoryManager from '@/pages/brandCategoryManager';
 import CollaborationList from '@/pages/collaboration';
 import NewsList from '@/pages/news';
+import Home from '@/pages/home';
 
 export const Router: React.FC = () => {
   const routes = useRoutes([
@@ -24,10 +25,10 @@ export const Router: React.FC = () => {
       path: '/',
       element: <MainLayout />,
       children: [
-        // {
-        //   path: 'dashboard',
-        //   element: <DashboardPage />
-        // },
+        {
+          path: 'dashboard',
+          element: <Home />
+        },
         {
           path: 'products',
           element: <ProductAddPage />

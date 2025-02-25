@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Button, Space, Modal, message, Popconfirm } from 'antd';
+import { Table, Button, Space, Modal, Popconfirm } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { ICollaboration } from '@/types/collaboration';
 import CollaborationForm from '@/components/CollaborationForm';
 import { getCollaborations, deleteCollaboration, addCollaboration, updateCollaboration } from '@/api/collaboration';
 import { getUrl } from '@/lib/utils';
+import { messageApi as message } from '@/lib/utils';
 
 const CollaborationList: React.FC = () => {
   const [visible, setVisible] = useState(false);

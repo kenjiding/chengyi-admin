@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -8,6 +8,13 @@ const { Content } = Layout;
 
 const MainLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [isHome, setIsHome] = useState(false);
+  
+  useEffect(() => {
+    const pathname = window.location.pathname;
+    console.log('pathname: ', pathname);
+    setIsHome(pathname === '/dashboard');
+  }, [window.location.pathname]);
 
   return (
     <Layout>
@@ -17,8 +24,8 @@ const MainLayout: React.FC = () => {
           collapsed={collapsed}
           onCollapse={setCollapsed}
         />
-        <Content className="p-6 min-h-screen bg-[#f5f5f5]">
-          <div className="bg-white p-6 min-h-full rounded h-[calc(100vh-140px)] overflow-auto">
+        <Content className={`${isHome ? '' : 'p-6'} min-h-screen bg-[#f5f5f5]`}>
+          <div className={`${isHome ? '' : 'p-6'} bg-white min-h-full rounded h-[calc(100vh-140px)] overflow-auto`}>
             <Outlet />
           </div>
         </Content>

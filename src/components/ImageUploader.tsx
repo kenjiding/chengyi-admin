@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Upload, message } from 'antd';
+import { Upload } from 'antd';
 import type { UploadProps } from 'antd';
 import { uploadImage } from '@/api/upload';
 import { UploadListType } from 'antd/es/upload/interface';
+import { messageApi } from '@/lib/utils';
 
 interface ImageUploaderProps {
   fileList: string[];
@@ -41,7 +42,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           // 上传失败
           if (onError) {
             onError(error);
-            message.error('上传失败');
+            messageApi.error('上传失败');
           }
         })
         .finally(() => {

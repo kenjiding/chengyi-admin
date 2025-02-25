@@ -1,8 +1,9 @@
 import { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
-import { Form, Input, Select, Button, Row, Col, message } from 'antd';
+import { Form, Input, Select, Button, Row, Col } from 'antd';
 import type { IBanner } from '@/types/banner';
 import ImageUploader from '@/components/ImageUploader';
 import { addBanner, updateBanner } from '@/api/banner';
+import { messageApi } from '@/lib/utils';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -51,15 +52,15 @@ const BannerForm = forwardRef<{ resetForm: () => void }, BannerFormProps>(({
       setLoading(true);
       if (initialValues?.id) {
         await updateBanner(initialValues.id, values);
-        message.success('Banner 更新成功');
+        messageApi.success('Banner 更新成功');
       } else {
         await addBanner(values);
-        message.success('Banner 创建成功');
+        messageApi.success('Banner 创建成功');
       }
       onSave(values);
     } catch (error) {
       console.error('保存 Banner 时出错:', error);
-      message.error('保存 Banner 失败');
+      messageApi.error('保存 Banner 失败');
     } finally {
       setLoading(false);
     }

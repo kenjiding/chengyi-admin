@@ -8,7 +8,6 @@ import {
   Space,
   Tag,
   Modal,
-  message,
   Popconfirm,
   Form,
   Input,
@@ -29,6 +28,7 @@ import { News } from '@/types/news';
 import ImageUploader from '@/components/ImageUploader';
 import { getNews, deleteNews, createNews, updateNews } from '@/api/news';
 import { getUrl } from '@/lib/utils';
+import { messageApi as message } from '@/lib/utils';
 
 const NewsManagement: React.FC = () => {
   const [form] = Form.useForm();

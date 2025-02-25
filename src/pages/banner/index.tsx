@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Button, Space, Tag, Modal, message, Popconfirm } from 'antd';
+import { Table, Button, Space, Tag, Modal, Popconfirm } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { IBanner } from '@/types/banner';
 import BannerForm from '@/components/BannerForm';
 import { getBanners, deleteBanner } from '@/api/banner';
 import { getUrl } from '@/lib/utils';
+import { messageApi as message } from '@/lib/utils';
 
 const BannerList: React.FC = () => {
   const [visible, setVisible] = useState(false);
