@@ -331,7 +331,7 @@ const NewsManagement: React.FC = () => {
             rules={[{ required: true, message: '请输入描述' }]}
           >
             {/* <RichTextEditor value={form.getFieldValue('description')}></RichTextEditor> */}
-            {/* <Input.TextArea placeholder="请输入新闻描述" rows={4} /> */}
+            <Input.TextArea placeholder="请输入新闻描述" rows={4} />
           </Form.Item>
 
           <Row gutter={20}>

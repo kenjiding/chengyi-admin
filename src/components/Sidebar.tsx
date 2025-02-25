@@ -19,11 +19,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const location = useLocation();
 
   const menuItems = [
-    {
-      key: '/dashboard',
-      icon: <DashboardOutlined />,
-      label: <Link to="/dashboard">仪表盘</Link>
-    },
+    // {
+    //   key: '/dashboard',
+    //   icon: <DashboardOutlined />,
+    //   label: <Link to="/dashboard">仪表盘</Link>
+    // },
     {
       key: 'products',
       icon: <ShoppingOutlined />,
@@ -49,11 +49,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       icon: <PictureOutlined />,
       label: <Link to="/news">新闻管理</Link>
     },
-    {
-      key: '/users',
-      icon: <UserOutlined />,
-      label: <Link to="/users">用户管理</Link>
-    },
+    // {
+    //   key: '/users',
+    //   icon: <UserOutlined />,
+    //   label: <Link to="/users">用户管理</Link>
+    // },
     {
       key: '/settings',
       icon: <SettingOutlined />,

@@ -25,10 +25,10 @@ export const Router: React.FC = () => {
       path: '/',
       element: <MainLayout />,
       children: [
-        {
-          path: 'dashboard',
-          element: <DashboardPage />
-        },
+        // {
+        //   path: 'dashboard',
+        //   element: <DashboardPage />
+        // },
         {
           path: 'products',
           element: <ProductAddPage />
