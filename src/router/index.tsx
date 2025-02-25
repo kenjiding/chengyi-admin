@@ -2,7 +2,6 @@ import React from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import AuthPage from '@/pages/auth';
-import DashboardPage from '@/pages/dashboard';
 import ProductAddPage from '@/pages/products';
 // import SettingsPage from '@/pages/settings';
 import NotFoundPage from '@/pages/404';

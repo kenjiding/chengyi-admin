@@ -2,9 +2,7 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  DashboardOutlined,
   ShoppingOutlined,
-  UserOutlined,
   SettingOutlined,
   PictureOutlined
 } from '@ant-design/icons';
